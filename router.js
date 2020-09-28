@@ -1,4 +1,3 @@
-
 const { Router } = require('express')
 const { state, RFID_READ, RFID_WRITE } = require('./store')
 
@@ -12,7 +11,7 @@ apiRouter.get('/set/:mode', (req, res) => {
     res.status(202)
   } else {
     console.error(`Not setting unreckognized rfid mode: ${mode}.`)
-    res.status(502)
+    res.status(400)
   }
 
   res.end()
