@@ -1,10 +1,12 @@
 {
   "license": "MIT",
+  "browser": "public/index.html",
+  "source": "src/index.html",
   "scripts": {
     "start": "run-p run:*",
     "run:server": "node server",
-    "run:packager": "parcel watch src/index.html --dist-dir public",
-    "build": "parcel build src/index.html --dist-dir public"
+    "run:packager": "parcel watch .",
+    "build": "parcel build ."
   },
   "dependencies": {
     "@material-ui/core": "^4.11.0",
@@ -15,7 +17,8 @@
     "mpc-js": "^1.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "serve-static": "^1.14.1"
+    "serve-static": "^1.14.1",
+    "use-async-effect": "^2.2.2"
   },
   "devDependencies": {
     "npm-run-all": "^4.1.5",

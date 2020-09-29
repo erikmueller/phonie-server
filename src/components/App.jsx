@@ -1,23 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import axios from 'axios'
+import useAsyncEffect from 'use-async-effect'
 import ModeSwitch from './ModeSwitch'
 import { RFID_READ, RFID_WRITE } from '../../rfid/constants'
 
-const loadData = (setWriteModeEnabled) => {
-  axios.get('http://localhost:6699/api/mode').then(
-    (response) => {
-      setWriteModeEnabled(response.data === RFID_WRITE)
-    },
-    (error) => {
-      console.log({ error })
-    }
-  )
-}
-
 const App = () => {
-  const [writeModeEnabled, setWriteModeEnabled] = React.useState(false)
+  const [writeModeEnabled, setWriteModeEnabled] = useState(false)
 
-  React.useEffect(() => loadData(setWriteModeEnabled))
+  useAsyncEffect((isMounted) =>
+    axios.get('http://localhost:6699/api/mode').then(
+      (response) =>
+        isMounted && setWriteModeEnabled(response.data === RFID_WRITE),
+      (error) => console.log({ error })
+    )
+  )
 
   const onChange = ({ target }) => {
     axios.post('http://localhost:6699/api/mode', {
